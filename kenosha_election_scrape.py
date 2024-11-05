@@ -140,5 +140,5 @@ for municipality, wards in MUNICIPALITY_DICT.items():
 results = pd.concat(DATAFRAME_LIST, ignore_index=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 filename = f"kenosha_election_results_all_wards_{timestamp}.csv"
-results.to_csv(filename, index=False)
+results.to_csv(filename, sep='|', index=False)
 print(f"\nData saved to '{filename}'")
