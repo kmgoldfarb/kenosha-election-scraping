@@ -104,6 +104,9 @@ def scrape_election_data(muni, ward):
                     if cand_index + 1 < len(all_tds):
                         value_td = all_tds[cand_index + 1]
                         clean_value = clean_vote_value(value_td.text.strip())
+                        candidate_name_list = candidate_name.split(" ")
+                        candidate_party = candidate_name_list[0]
+                        candidate_name = " ".join(candidate_name_list[1:])
 
                         all_data.append(
                             {
@@ -111,6 +114,7 @@ def scrape_election_data(muni, ward):
                                 "Ward_Name": ward_name,
                                 "Ward_Number": ward_name.split(" ")[1].strip(),
                                 "Contest": contest_name,
+                                "Party": candidate_party,
                                 "Candidate": candidate_name,
                                 "Votes": clean_value,
                             }
@@ -124,7 +128,7 @@ def scrape_election_data(muni, ward):
         DATAFRAME_LIST.append(df)
 
     except Exception as e:
-        print(f"Error processing ward {ward_number}: {str(e)}")
+        print(f"Error processing ward {ward_name}: {str(e)}")
         return None
 
 
@@ -140,5 +144,5 @@ for municipality, wards in MUNICIPALITY_DICT.items():
 results = pd.concat(DATAFRAME_LIST, ignore_index=True)
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 filename = f"kenosha_election_results_all_wards_{timestamp}.csv"
-results.to_csv(filename, sep='|', index=False)
+results.to_csv(filename, sep="|", index=False)
 print(f"\nData saved to '{filename}'")
