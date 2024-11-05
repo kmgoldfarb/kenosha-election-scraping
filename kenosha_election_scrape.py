@@ -4,7 +4,7 @@ import time
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-ELECTION_ID = 63
+ELECTION_ID = 64
 MUNICIPALITY_DICT = {}
 DATAFRAME_LIST = []
 
